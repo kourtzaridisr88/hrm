@@ -8,14 +8,14 @@ use FastRoute\RouteCollector;
 class Router
 {
     /**
-     * The inversion of control instance
+     * The dipatcher instance.
      * 
      * @var \FastRoute\Dispatcher
      */
     public $dispatcher;
 
     /**
-     * Collect application api routes
+     * Collect's application api routes
      * 
      * @return void
      */

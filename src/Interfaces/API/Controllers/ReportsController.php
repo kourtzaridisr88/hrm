@@ -9,9 +9,28 @@ use Hr\Infrastructure\Auth;
 
 class ReportsController 
 {
+    /**
+     * The departments repository implementation.
+     * 
+     * @var \Hr\Domain\Department\Contracts\DepartmentRepositoryInterface
+     */
     private $departments;
+
+    /**
+     * The employees repository implementation.
+     * 
+     * @var \Hr\Domain\Department\Contracts\EmployeeRepositoryInterface
+     */
     private $employees;
 
+    /**
+     * Create's new instance and check if the 
+     * incoming request is authenticated.
+     * 
+     * @param \Hr\Infrastructure\Auth
+     * @param \Hr\Domain\Department\Contracts\DepartmentRepositoryInterface
+     * @param \Hr\Domain\Department\Contracts\EmployeeRepositoryInterface
+     */
     public function __construct(
         Auth $auth,
         DepartmentRepositoryInterface $departments, 
@@ -22,6 +41,11 @@ class ReportsController
         $this->employees = $employees;
     }
 
+    /**
+     * Fetching the reports.
+     * 
+     * @return \Laminas\Diactoros\ResponseInterface
+     */
     public function index()
     {
         $departments = $this->departments->count();

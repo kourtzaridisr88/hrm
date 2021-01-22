@@ -8,7 +8,6 @@ use Hr\Interfaces\API\Controllers\LoginController;
 
 $router->post('/users', [UsersController::class, 'store']);
 $router->post('/auth/login', [LoginController::class, 'store']);
-$router->post('/auth/logout', [LoginController::class, 'logout']);
 $router->get('/reports', [ReportsController::class, 'index']);
 
 // Departments REST Endpoints

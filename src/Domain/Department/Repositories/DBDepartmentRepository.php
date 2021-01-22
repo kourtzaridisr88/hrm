@@ -44,7 +44,7 @@ class DBDepartmentRepository implements DepartmentRepositoryInterface
         }
 
         if (isset($params['salaries_to'])) {
-            $sql .= " HAVING total_salaries >= :salaries_to";
+            $sql .= " HAVING total_salaries <= :salaries_to";
         }
 
         if ($perPage !== '*') {
