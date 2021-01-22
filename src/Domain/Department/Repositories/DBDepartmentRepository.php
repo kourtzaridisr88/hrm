@@ -102,7 +102,7 @@ class DBDepartmentRepository implements DepartmentRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findById($id)
+    public function findById($id): Department
     {
         $sql = "SELECT departments.*, employees.name as employee_name, employees.salary, employees.position 
             FROM departments 
@@ -114,7 +114,10 @@ class DBDepartmentRepository implements DepartmentRepositoryInterface
         return DepartmentMapper::mapSingle($rows);
     }
 
-    public function hasEmployees($id)
+    /**
+     * {@inheritDoc}
+     */
+    public function hasEmployees($id): bool
     {
         $sql = "SELECT departments.*,
             FROM departments 
