@@ -8,7 +8,10 @@ use Hr\Domain\Organization\Entities\User;
 
 class DBUserRepository implements UserRepositoryInterface
 {
-    public function save(User $user)
+    /**
+     * {@inheritDoc}
+     */
+    public function save(User $user): array
     {
         $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
         
@@ -23,7 +26,10 @@ class DBUserRepository implements UserRepositoryInterface
         return Database::instance()->query($sql);
     }
 
-    public function findByEmail($email)
+    /**
+     * {@inheritDoc}
+     */
+    public function findByEmail(string $email): ?array
     {
         $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
         return Database::instance()->query($sql, [
@@ -31,7 +37,10 @@ class DBUserRepository implements UserRepositoryInterface
         ])[0] ?? null;
     }
 
-    public function saveToken($id, $token)
+    /**
+     * {@inheritDoc}
+     */
+    public function saveToken(int $id, string $token): void
     {
         $sql = "UPDATE users SET token = :token WHERE id = :id";
 
@@ -41,7 +50,10 @@ class DBUserRepository implements UserRepositoryInterface
         ]);
     }
 
-    public function findByToken($token)
+    /**
+     * {@inheritDoc}
+     */
+    public function findByToken(string $token): ?array
     {
         $sql = "SELECT * FROM users WHERE token = :token LIMIT 1";
         return Database::instance()->query($sql, [

@@ -6,6 +6,12 @@ use Hr\Domain\Organization\Entities\User;
 
 class UserMapper
 {
+    /**
+     * Create's a user from the incoming request.
+     * 
+     * @param array $data
+     * @return \Hr\Domain\Organization\Entities\User
+     */
     public static function fromRequest(array $data): User
     {
         $user = new User();

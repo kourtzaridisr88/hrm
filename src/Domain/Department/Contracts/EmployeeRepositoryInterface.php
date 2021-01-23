@@ -2,7 +2,63 @@
 
 namespace Hr\Domain\Department\Contracts;
 
+use Hr\Domain\Deprtment\Entities\Employee;
+
 interface EmployeeRepositoryInterface 
 {
-    // public function getAllWithSalaries(): ?array;
+    /**
+     * Paginate employees results.
+     * 
+     * @param int $perPage
+     * @param int $page
+     * @return array
+     */
+    public function paginate($perPage = 15, $page = 1): array;
+
+    /**
+     * Count employees entries.
+     * 
+     * @return array|null
+     */
+    public function count(): ?array;
+
+    /**
+     * Sumarize employees salaries.
+     * 
+     * @return array|null
+     */
+    public function countTotalSalaries(): ?array;
+
+    /**
+     * Store an empoyee.
+     * 
+     * @param \Hr\Domain\Deprtment\Entities\Employee
+     * @return array
+     */
+    public function save(Employee $employee): array;
+
+    /**
+     * Update an empoyee.
+     * 
+     * @param \Hr\Domain\Deprtment\Entities\Employee
+     * @return void
+     */
+    public function update(Employee $employee): void;
+
+    /**
+     * Search an empoyee by his id.
+     * 
+     * @param \Hr\Domain\Deprtment\Entities\Employee
+     * @return void
+     * @throws \Hr\Infrastructure\Exception\EntityNotFoundException
+     */
+    public function findById(int $id): array;
+
+    /**
+     * Delete an empoyee by his id.
+     * 
+     * @param \Hr\Domain\Deprtment\Entities\Employee
+     * @return void
+     */
+    public function delete(int $id): void;
 }

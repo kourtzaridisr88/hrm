@@ -6,7 +6,13 @@ use Hr\Domain\Department\Entities\Employee;
 
 class EmployeeMapper
 {
-    public static function fromRequest(array $data)
+    /**
+     * Create a new employee
+     * 
+     * @param array $data
+     * @return \Hr\Domain\Department\Entities\Employee
+     */
+    public static function fromRequest(array $data): Employee
     {
         $employee = new Employee();
 
