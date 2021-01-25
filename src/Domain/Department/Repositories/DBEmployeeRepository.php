@@ -13,7 +13,7 @@ class DBEmployeeRepository implements EmployeeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function paginate($perPage = 15, $page = 1)
+    public function paginate($perPage = 15, $page = 1): array
     {
         $sql = "SELECT * from employees";
         $results = Database::instance()->query($sql);
@@ -33,14 +33,17 @@ class DBEmployeeRepository implements EmployeeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function count()
+    public function count(): ?string
     {
         $sql = "SELECT COUNT(*) AS total_employees FROM employees";
 
         return Database::instance()->query($sql)[0]['total_employees'] ?? 0;
     }
 
-    public function countTotalSalaries()
+    /**
+     * {@inheritDoc}
+     */
+    public function countTotalSalaries(): ?int
     {
         $sql = "SELECT SUM(salary) AS total_salaries FROM employees";
 
@@ -50,7 +53,7 @@ class DBEmployeeRepository implements EmployeeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function save(Employee $employee)
+    public function save(Employee $employee): array
     {
         $sql = "INSERT INTO employees (name, position, salary, department_id) VALUES (:name, :position, :salary, :department_id)";
         
@@ -85,7 +88,7 @@ class DBEmployeeRepository implements EmployeeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findById($id)
+    public function findById($id): array
     {
         $sql = "SELECT * FROM employees WHERE id = :id";
 

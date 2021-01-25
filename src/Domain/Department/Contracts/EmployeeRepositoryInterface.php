@@ -2,7 +2,7 @@
 
 namespace Hr\Domain\Department\Contracts;
 
-use Hr\Domain\Deprtment\Entities\Employee;
+use Hr\Domain\Department\Entities\Employee;
 
 interface EmployeeRepositoryInterface 
 {
@@ -18,19 +18,19 @@ interface EmployeeRepositoryInterface
     /**
      * Count employees entries.
      * 
-     * @return array|null
+     * @return string|null
      */
-    public function count(): ?array;
+    public function count(): ?string;
 
     /**
      * Sumarize employees salaries.
      * 
      * @return array|null
      */
-    public function countTotalSalaries(): ?array;
+    public function countTotalSalaries(): ?int;
 
     /**
-     * Store an empoyee.
+     * Store an employee.
      * 
      * @param \Hr\Domain\Deprtment\Entities\Employee
      * @return array

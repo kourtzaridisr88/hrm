@@ -26,30 +26,27 @@ class DBDepartmentRepository implements DepartmentRepositoryInterface
     {
         $perPage = $params['per_page'] ?? 15;
         $page = $params['page'] ?? 1;
-
+        $params['no_of_employees'] = $params['no_of_employees'] ?? 0;
         unset($params['per_page']);
         unset($params['page']);
 
         $sql = "SELECT departments.*, COUNT(employees.id) AS employees, MAX(employees.salary) as max_salary, 
             AVG(employees.salary) as avg_salaries, SUM(employees.salary) AS total_salaries 
             FROM departments 
-            LEFT JOIN employees ON employees.department_id = departments.id GROUP BY departments.id";
-
-        if (isset($params['no_of_employees'])) {
-            $sql .= " HAVING employees >= :no_of_employees";
-        }
+            LEFT JOIN employees ON employees.department_id = departments.id GROUP BY departments.id HAVING employees >= :no_of_employees";
 
         if (isset($params['salaries_from'])) {
-            $sql .= " HAVING total_salaries >= :salaries_from";
+            $sql .= " AND total_salaries >= :salaries_from";
         }
 
         if (isset($params['salaries_to'])) {
-            $sql .= " HAVING total_salaries <= :salaries_to";
+            $sql .= " AND total_salaries < :salaries_to";
         }
 
         if ($perPage !== '*') {
             $skip = $perPage * ($page - 1);
-            $sql .= " LIMIT {$skip}, {$perPage}";
+            $limit = $skip + $perPage;
+            $sql .= " LIMIT {$skip}, {$limit}";
         }
 
         $departments = Database::instance()->query($sql, $params);
@@ -92,9 +89,10 @@ class DBDepartmentRepository implements DepartmentRepositoryInterface
      */
     public function update(Department $department): void
     {
-        $sql = "UPDATE departments SET name = :name";
+        $sql = "UPDATE departments SET name = :name WHERE id = :id";
 
-        Database::instance()->execute($sql,[
+        Database::instance()->execute($sql, [
+            'id' => $department->id,
             'name' => $department->name
         ]);
     }

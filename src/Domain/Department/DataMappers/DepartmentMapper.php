@@ -50,6 +50,7 @@ class DepartmentMapper
     {
         $department = new Department();
 
+        $department->id = isset($data['id']) ? (int) $data['id'] : null; 
         $department->name = $data['name'];
 
         return $department;
